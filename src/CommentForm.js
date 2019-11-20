@@ -11,7 +11,12 @@ const CommentForm = (props) => {
     }
     const { displayName, email, content } = inputs;
     await createComment(currentPostUrl, { displayName, email, content })
-    submitCallback()
+    submitCallback(currentPostUrl);
+    setInputs({
+      displayName: '',
+      email: '',
+      content: ''
+    })
   }
 
   const handleInputChange = (event) => {

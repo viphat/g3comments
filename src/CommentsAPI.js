@@ -19,6 +19,8 @@ export const createComment = async (postUrl, newComment) => {
 
   const uuidv1 = require('uuid/v1');
   newComment.commentId = uuidv1();
+  newComment.createdAt = Date.now();
+
   let params = { }
   if (data === undefined || data === null) {
     params = {
