@@ -1,0 +1,2 @@
+export const GISTS_PERSONAL_ACCESS_TOKEN = "7f94c020225786d43c107928795caec8c11c5f70";
+export const GISTS_COMMENTS_API_URL = "https://api.github.com/gists/3469343e07b76be45f5f7a20b7911941";

@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { getCommentsByPost } from './CommentsAPI';
+import CommentForm from './CommentForm';
 
 function App() {
+  const currentPostUrl = window.location.pathname.replace(/\//g, '');
+  const [comments, setComments] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const data = await getCommentsByPost(currentPostUrl)
+      setComments(data.comments);
+      // setIsLoading(false);
+    } catch (error) {
+      // Error Handling
+      setIsEmpty(true);
+      // setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [currentPostUrl]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CommentForm currentPostUrl={currentPostUrl} submitCallback={fetchData}/>
+      { currentPostUrl }
+      <br />
+      { !isEmpty &&
+        <>
+          { comments.length }
+          <br/>
+          <pre>
+            { JSON.stringify(comments) }
+          </pre>
+        </>
+      }
+    </>
   );
 }
 
