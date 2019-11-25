@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getCommentsByPost } from './CommentsAPI';
 import CommentForm from './CommentForm';
+import Comments from './Comments';
 
 function App() {
   const currentPostUrl = window.location.pathname.replace(/\//g, '');
@@ -26,20 +27,8 @@ function App() {
 
   return (
     <>
-      <CommentForm currentPostUrl={currentPostUrl} submitCallback={fetchData}/>
-      { currentPostUrl }
-      <br />
-      { isEmpty ? 'TRUE' : 'FALSE' }
-      <br />
-      { !isEmpty &&
-        <>
-          { comments.length }
-          <br/>
-          <pre>
-            { JSON.stringify(comments, null, 2) }
-          </pre>
-        </>
-      }
+      { !isEmpty && <Comments comments={comments} /> }
+      <CommentForm currentPostUrl={currentPostUrl} submitCallback={fetchData} />
     </>
   );
 }

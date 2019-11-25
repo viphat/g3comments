@@ -3,7 +3,9 @@ import axios from 'axios';
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': `token ${GISTS_PERSONAL_ACCESS_TOKEN}`
+  'Authorization': `token ${GISTS_PERSONAL_ACCESS_TOKEN}`,
+  'Cache-Control': 'no-cache',
+  'Pragma': 'no-cache',
 }
 
 export const getCommentsByPost = async (postUrl) => {
@@ -15,8 +17,6 @@ export const getCommentsByPost = async (postUrl) => {
 
 export const createComment = async (postUrl, newComment) => {
   const data = await getCommentsByPost(postUrl);
-  const { comments } = data;
-
   const uuidv1 = require('uuid/v1');
   newComment.commentId = uuidv1();
   newComment.createdAt = Date.now();
@@ -29,6 +29,7 @@ export const createComment = async (postUrl, newComment) => {
       }
     }
   } else {
+    const { comments } = data;
     comments.push(newComment);
     params = {
       [`${postUrl}.json`]: {

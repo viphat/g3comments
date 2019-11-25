@@ -15,7 +15,7 @@ const CommentForm = (props) => {
     setInputs({
       displayName: '',
       email: '',
-      content: ''
+      content: '',
     })
   }
 
@@ -27,10 +27,10 @@ const CommentForm = (props) => {
   return (
     <form onSubmit={submitComment} className="pure-form pure-form-aligned">
       <fieldset>
-        <legend>Comment Form</legend>
+        <legend>Leave Your Comment</legend>
         <div className='pure-control-group'>
           <label htmlFor='displayName'>Display Name:</label>
-          <input id='displayName' name='displayName' type='text' placeholder='Display Name' className='pure-input-rounded pure-u-1-2' onChange={handleInputChange} value={inputs.displayName} required/>
+          <input id='displayName' name='displayName' type='text' placeholder='Display Name' className='pure-input-rounded' onChange={handleInputChange} value={inputs.displayName} required/>
           <span className='pure-form-message-inline'>*</span>
         </div>
 
