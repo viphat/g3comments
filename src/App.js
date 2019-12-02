@@ -13,6 +13,7 @@ function App() {
     try {
       const data = await getCommentsByPost(currentPostUrl)
       setComments(data.comments);
+      setIsEmpty(data.comments.length === 0)
       // setIsLoading(false);
     } catch (error) {
       // Error Handling
@@ -26,10 +27,10 @@ function App() {
   }, [currentPostUrl, fetchData]);
 
   return (
-    <>
+    <div className='container w-full mx-auto' style={{ maxWidth: '44em' }}>
       { !isEmpty && <Comments comments={comments} /> }
       <CommentForm currentPostUrl={currentPostUrl} submitCallback={fetchData} />
-    </>
+    </div>
   );
 }
 

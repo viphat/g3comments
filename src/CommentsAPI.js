@@ -4,8 +4,6 @@ import axios from 'axios';
 const headers = {
   'Accept': 'application/json',
   'Authorization': `token ${GISTS_PERSONAL_ACCESS_TOKEN}`,
-  'Cache-Control': 'no-cache',
-  'Pragma': 'no-cache',
 }
 
 export const getCommentsByPost = async (postUrl) => {
@@ -46,7 +44,7 @@ export const createComment = async (postUrl, newComment) => {
 }
 
 const getAll = async () => {
-  const response = await axios.get(GISTS_COMMENTS_API_URL, { headers: headers })
+  const response = await axios.get(`${GISTS_COMMENTS_API_URL}?timestamp=${Date.now()}`, { headers: headers })
   const filesObj = response.data['files'];
   return Object.keys(filesObj).map((fileKey) => {
     const obj = filesObj[fileKey];
